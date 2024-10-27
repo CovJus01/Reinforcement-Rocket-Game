@@ -1,15 +1,19 @@
 import pygame
 from pygame.locals import *
 
+from EventHandler import EventHandler
+
+
 class Game:
     def __init__(self):
         self.running = True
         self.display_surface = None
         self.size = self.width, self.height = 1200, 900
-    
+        self.clock = pygame.time.Clock()
+        self.event_handler = EventHandler(self)
+
     def on_init(self):
         pygame.init()
-        self.clock = pygame.time.Clock()
         self.display_surface = pygame.display.set_mode(self.size, pygame.HWSURFACE)
         self.running = True
     
@@ -17,10 +21,8 @@ class Game:
         if event.type == pygame.QUIT:
             self.running = False
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.locals.K_BACKSPACE:
-                pygame.draw.line(self.display_surface, "red", (450,200), (450,450), width = 20)
+            self.handleKEYDOWN(event)
 
-      
     def on_loop(self):
         pass
     
@@ -35,15 +37,10 @@ class Game:
             self.running = False
 
         while( self.running ):
-                for event in pygame.event.get():
-                    self.on_event(event)
+                self.event_handler.updateEvents()
+                self.event_handler.handleEvents()
                 self.on_loop()
                 self.on_render()
                 self.clock.tick(60)
         self.on_cleanup()
 
-
-
-if __name__ == "__main__" :
-  theApp = Game()
-  theApp.on_execute()
