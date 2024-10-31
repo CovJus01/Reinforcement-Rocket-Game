@@ -34,3 +34,11 @@ class Rocket:
 
   def setAngle(self, angle):
     self.angle = angle
+  def render(self, surface):
+    offset = self.size[0]/2
+    surfaceDim = surface.get_size()
+    x = surfaceDim[0]/2
+    y = surfaceDim[1]/2
+    pygame.draw.line(surface, "red" , (x, y-offset), (x, y+offset) , width = self.size[1])
+
+

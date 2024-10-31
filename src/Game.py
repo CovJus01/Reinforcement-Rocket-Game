@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 
 from EventHandler import EventHandler
-
+from Rocket import Rocket
 
 class Game:
     def __init__(self):
@@ -15,7 +15,10 @@ class Game:
     def on_init(self):
         pygame.init()
         self.display_surface = pygame.display.set_mode(self.size, pygame.HWSURFACE)
+        self.display_surface
         self.running = True
+        self.rocket = Rocket()
+        self.rocket.setSize((400,200))
     
     def on_event(self, event):
         if event.type == pygame.QUIT:
@@ -24,7 +27,7 @@ class Game:
             self.handleKEYDOWN(event)
 
     def on_loop(self):
-        pass
+        self.rocket.render(self.display_surface)
     
     def on_render(self):
         pygame.display.flip()
