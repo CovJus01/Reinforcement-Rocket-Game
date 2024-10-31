@@ -5,8 +5,8 @@ class Rocket:
 
   def __init__(self):
     self.pos = (0,0)
-    self.size = (400, 200)
-    self.angle = 0
+    self.size = (400, 2)
+    self.angle = 90
     self.velocity = [0,0]
     self.head = (0,0)
     self.tail = (0,0)
