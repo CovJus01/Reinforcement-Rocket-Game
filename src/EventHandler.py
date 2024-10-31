@@ -18,14 +18,16 @@ class EventHandler:
         case pygame.KEYDOWN:
           self.handleKEYDOWN(event)
         case _:
-          print(event.type)
-
+          pass
   def handleKEYDOWN(self, event):
     match event.key:
       case pygame.locals.K_BACKSPACE:
         pygame.draw.line(self.game.display_surface, "red" , (450, 200), (450, 450) , width = 1)
+      case pygame.locals.K_a:
+        self.game.rocket.addAngle()
+      case pygame.locals.K_d:
+        self.game.rocket.subAngle()
       case _:
-        print(event.key)
-
+        pass
 
 

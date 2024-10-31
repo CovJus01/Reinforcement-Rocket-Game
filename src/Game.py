@@ -18,7 +18,8 @@ class Game:
         self.display_surface
         self.running = True
         self.rocket = Rocket()
-        self.rocket.setSize((400,200))
+        self.rocket.setSize((400,2))
+        self.rocket.setAngle(180)
     
     def on_event(self, event):
         if event.type == pygame.QUIT:
@@ -27,6 +28,7 @@ class Game:
             self.handleKEYDOWN(event)
 
     def on_loop(self):
+        self.display_surface.fill((0,0,0))
         self.rocket.render(self.display_surface)
     
     def on_render(self):
