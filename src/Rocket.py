@@ -4,15 +4,14 @@ import math
 class Rocket: 
 
   def __init__(self):
-    self.pos = (0,0)
+    self.pos = (0,0) #x, y
     self.size = (400, 2)
     self.angle = 90
-    self.velocity = [0,0]
+    self.velocity = [0,0] #Vx , Vy
+    self.acceleration = [0,0,0] #Ax, Ay, Aw
     self.head = (0,0)
     self.tail = (0,0)
 
-  def on_init(self):
-    self.setAngle(0)
   def getPos(self):
     return self.pos
   
@@ -21,6 +20,9 @@ class Rocket:
 
   def getVelocity(self):
     return self.velocity
+
+  def getAcceleration(self):
+    return self.acceleration
 
   def getAngle(self):
     return self.angle
@@ -37,6 +39,8 @@ class Rocket:
   def setVelocity(self, velocity):
     self.velocity = velocity
 
+  def setAcceleration(self, acceleration):
+    self.acceleration = acceleration
   def setAngle(self, angle):
     self.angle = angle
 
