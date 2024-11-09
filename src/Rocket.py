@@ -1,9 +1,9 @@
 import pygame
 import math
 
-class Rocket: 
+class Rocket:
 
-  def __init__(self):
+  def __init__(self, id):
     self.pos = (0,0) #x, y
     self.size = (400, 2)
     self.angle = 90
@@ -11,10 +11,12 @@ class Rocket:
     self.acceleration = [0,0,0] #Ax, Ay, Aw
     self.head = (0,0)
     self.tail = (0,0)
+    self.id = id
+    self.updatePoints()
 
   def getPos(self):
     return self.pos
-  
+
   def getSize(self):
     return self.size
 
@@ -29,7 +31,7 @@ class Rocket:
 
   def setPosX(self, posX):
     self.pos[0] = posX
-  
+
   def setPosY(self, posY):
     self.pos[1] = posY
 
@@ -41,6 +43,7 @@ class Rocket:
 
   def setAcceleration(self, acceleration):
     self.acceleration = acceleration
+
   def setAngle(self, angle):
     self.angle = angle
 
@@ -49,16 +52,26 @@ class Rocket:
     self.updatePoints()
 
   def subAngle(self):
-    self.angle -= 1 
+    self.angle -= 1
     self.updatePoints()
 
   def render(self, surface):
+    #Get Surface Dimensions
     surfaceDim = surface.get_size()
     x = surfaceDim[0]/2
     y = surfaceDim[1]/2
-    pygame.draw.line(surface, "red" , (x+self.head[0], y-self.head[1]), (x+self.tail[0], y-self.tail[1]) , width = self.size[1])
+
+    #Draw the line on the surface with the values
+    pygame.draw.line(surface,
+                     "red" ,
+                     (x+self.head[0], y-self.head[1]),
+                     (x+self.tail[0], y-self.tail[1]),
+                     width = self.size[1])
 
   def updatePoints(self):
     radius = self.size[0]/2
-    self.head = (int(radius*math.cos(math.radians(self.angle))), int(radius*math.sin(math.radians(self.angle))))
+    #Calculate the points of the head
+    self.head = (int(radius*math.cos(math.radians(self.angle))),
+                 int(radius*math.sin(math.radians(self.angle))))
+    #Tail points are the negative values of the head
     self.tail = (-self.head[0], -self.head[1])
