@@ -4,6 +4,7 @@ from pygame.locals import *
 from EventHandler import EventHandler
 from Rocket import Rocket
 from Renderer import Renderer
+from World import World
 
 
 class Game:
@@ -13,6 +14,7 @@ class Game:
         self.size = self.width, self.height = 1200, 900
         self.clock = pygame.time.Clock()
         self.rocket = Rocket(1)
+        self.world = World(10,5)
 
     #Setup the game on it's full initialization
     def on_init(self):
