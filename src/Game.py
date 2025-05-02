@@ -22,7 +22,7 @@ class Game:
         self.running = True
         self.event_handler = EventHandler(self)
         self.renderer = Renderer(self.display_surface)
-        self.world.importWorld("world_1794174.txt")
+        self.world.importWorld("../worlds/world_1794174.txt")
         self.renderer.addObject(self.world)
         self.renderer.addObject(self.rocket)
 

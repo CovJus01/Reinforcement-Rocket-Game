@@ -28,7 +28,7 @@ class World:
     def saveWorld(self):
 
         worldID = random.randint(0,2000000)
-        with open(f"world_{worldID}.txt", "w") as f:
+        with open(f"../worlds/world_{worldID}.txt", "w") as f:
             for line in self.blocks:
                 string = ""
                 for block in line:
