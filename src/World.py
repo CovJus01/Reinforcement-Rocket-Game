@@ -6,8 +6,8 @@ class World:
     def __init__(self, height, width, id):
         self.height = height
         self.width = width
-        self.block_h = 100
-        self.block_w = 100
+        self.block_h = 50
+        self.block_w = 50
         self.blocks = [[0]*width]*height
         self.id = id
 

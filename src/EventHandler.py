@@ -8,8 +8,8 @@ class EventHandler:
         self.eventList = []
         self.game = game
         self.eventStates = {
-          "KEY_D": {"val": False, "function": self.game.rocket.subAngle},
-          "KEY_A": {"val": False, "function": self.game.rocket.addAngle}
+          "KEY_D": {"val": 0, "function": self.game.rocket.setThruster_R},
+            "KEY_A": {"val": 0, "function": self.game.rocket.setThruster_L}
         }
 
     def updateEvents(self):
@@ -30,20 +30,19 @@ class EventHandler:
     def handleKEYDOWN(self, event):
         match event.key:
             case pygame.locals.K_a:
-                self.eventStates["KEY_A"]["val"] = True
+                self.eventStates["KEY_A"]["val"] = 1
             case pygame.locals.K_d:
-                self.eventStates["KEY_D"]["val"] = True
+                self.eventStates["KEY_D"]["val"] = 1
 
     def handleKEYUP(self, event):
         match event.key:
             case pygame.locals.K_a:
-                self.eventStates["KEY_A"]["val"] = False
+                self.eventStates["KEY_A"]["val"] = 0
             case pygame.locals.K_d:
-                self.eventStates["KEY_D"]["val"] = False
+                self.eventStates["KEY_D"]["val"] = 0
             case _:
                 pass
 
     def execEvents(self):
         for event in self.eventStates:
-            if (self.eventStates[event]["val"]):
-                self.eventStates[event]["function"]()
+            self.eventStates[event]["function"](self.eventStates[event]["val"])
