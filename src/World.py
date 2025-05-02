@@ -1,32 +1,50 @@
+import pygame
+import random
+from pygame.locals import *
 
 class World:
-    def __init__(self, height, width):
+    def __init__(self, height, width, id):
         self.height = height
         self.width = width
+        self.block_h = 100
+        self.block_w = 100
         self.blocks = [[0]*width]*height
+        self.id = id
 
-    def print_blocks(self):
+    #Import existing world line by line into this world's blocks
+    def importWorld(self, filename):
+
+        with open(filename) as world_file:
+            for line in world_file:
+                print(line)
+
+    #Save the existing world into a specific ID txt file
+    def saveWorld(self):
+
+        worldID = random.randint(0,2000000)
+        with open(f"world_{worldID}.txt", "w") as f:
+            for line in self.blocks:
+                string = ""
+                for block in line:
+                    string += str(block) + ","
+                string += "\n"
+                f.write(string)
+
+    #Print the blocks array of the world
+    def printBlocks(self):
         print(self.blocks)
 
+    #Render each block according to its value
     def render(self, surface):
-        #Get Surface Dimensions
-        surfaceDim = surface.get_size()
-        x = surfaceDim[0]/2
-        y = surfaceDim[1]/2
 
-        #Draw the line on the surface with the values
-        pygame.draw.line(surface,
-                         "red" ,
-                         (x+self.head[0], y-self.head[1]),
-                         (x+self.tail[0], y-self.tail[1]),
-                         width = self.size[1])
-
-    def updatePoints(self):
-        radius = self.size[0]/2
-        #Calculate the points of the head
-        self.head = (int(radius*math.cos(math.radians(self.angle))),
-                     int(radius*math.sin(math.radians(self.angle))))
-        #Tail points are the negative values of the head
-        self.tail = (-self.head[0], -self.head[1])
+        for y in range(self.height):
+            for x in range(self.width):
+                match self.blocks[y][x]:
+                    case 0:
+                        pygame.draw.rect(surface, "black", (x*self.block_w,y*self.block_h,self.block_w,self.block_h))
+                    case 1:
+                        pygame.draw.rect(surface, "blue", (x*self.block_w,y*self.block_h,self.block_w,self.block_h))
+                    case _:
+                        continue
 
 
