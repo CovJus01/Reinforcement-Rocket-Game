@@ -13,10 +13,16 @@ class World:
 
     #Import existing world line by line into this world's blocks
     def importWorld(self, filename):
-
         with open(filename) as world_file:
+
+            #Split and convert string format to int and save to arrays
+            world_load = []
             for line in world_file:
-                print(line)
+                world_load.append([int(block) for block in line.split(",")[:-1]])
+            self.blocks = world_load
+
+
+
 
     #Save the existing world into a specific ID txt file
     def saveWorld(self):
@@ -41,9 +47,9 @@ class World:
             for x in range(self.width):
                 match self.blocks[y][x]:
                     case 0:
-                        pygame.draw.rect(surface, "black", (x*self.block_w,y*self.block_h,self.block_w,self.block_h))
-                    case 1:
                         pygame.draw.rect(surface, "blue", (x*self.block_w,y*self.block_h,self.block_w,self.block_h))
+                    case 1:
+                        pygame.draw.rect(surface, "gray", (x*self.block_w,y*self.block_h,self.block_w,self.block_h))
                     case _:
                         continue
 
