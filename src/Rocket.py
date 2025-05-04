@@ -4,18 +4,21 @@ import math
 class Rocket:
 
       def __init__(self, id):
-        self.pos = (0,0) #x, y
-        self.size = (50, 150)
-        self.angle = 90
-        self.velocity = [0,0] #Vx , Vy
-        self.acceleration = [0,0,0] #Ax, Ay, Aw
-        self.thrusters = {"right": 0, "left":0}
-        self.head = (0,0)
-        self.tail = (0,0)
+
+        #Object Params
         self.id = id
         self.surface = pygame.Surface((self.size[0], self.size[1]), pygame.SRCALPHA)
+        self.size = (50, 150)
+        self.thrusters = {"right": 0, "left":0}
+
+        #Physics Related
+        self.angle = 90
+        self.pos = (0.0,0.0) #x, y
+        self.velocity = [0.0,0.0] #Vx , Vy
+        self.acceleration = [0.0,0.0,0.0] #Ax, Ay, Aw
+
+        #Initial functions
         self.drawRocket()
-        self.updatePoints()
 
       def getPos(self):
         return self.pos
@@ -52,11 +55,9 @@ class Rocket:
 
       def addAngle(self):
         self.angle += 1
-        self.updatePoints()
 
       def subAngle(self):
         self.angle -= 1
-        self.updatePoints()
 
       def setThruster_L(self, state):
             self.thrusters["left"] = state
@@ -79,14 +80,6 @@ class Rocket:
         position = rotated.get_rect(center=(x,y))
 
         surface.blit(rotated, position)
-
-      def updatePoints(self):
-        radius = self.size[0]/2
-        #Calculate the points of the head
-        self.head = (int(radius*math.cos(math.radians(self.angle))),
-                     int(radius*math.sin(math.radians(self.angle))))
-        #Tail points are the negative values of the head
-        self.tail = (-self.head[0], -self.head[1])
 
       def drawRocket(self):
         pygame.draw.ellipse(self.surface, "red",(0,0,self.size[0],self.size[1]))
